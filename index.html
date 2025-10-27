@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Access | Bombay Ocean Creations</title>
+    <title>Bombay Ocean Creations | Premium E-Book Library</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -19,6 +19,7 @@
             --gray-100: #f5f5f5;
             --gray-200: #e5e5e5;
             --gray-800: #262626;
+            --accent-glow: rgba(255, 255, 255, 0.8);
         }
         
         body {
@@ -27,303 +28,591 @@
             color: var(--primary-black);
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Modern Header */
+        .modern-header {
+            background: var(--primary-white);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
         }
         
-        .access-container {
-            text-align: center;
-            padding: 2rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .company-name {
-            font-size: 2rem;
+        .logo {
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 2rem;
             letter-spacing: -0.5px;
         }
         
-        .library-button {
-            background: var(--primary-white);
-            border: 2px solid var(--primary-black);
-            padding: 1.5rem 3rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
-            width: 100%;
-            max-width: 300px;
-        }
-        
-        .library-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-        }
-        
-        .button-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-        
-        .marathi-text {
-            font-size: 1rem;
+        .logo-accent {
             color: var(--gray-800);
-            font-style: italic;
+            font-weight: 300;
         }
         
-        .instruction {
+        .modern-nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-weight: 500;
             font-size: 0.9rem;
-            color: var(--gray-800);
-            margin-top: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
         
-        /* Hide main content initially */
-        #mainContent {
-            display: none;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-black);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
             width: 100%;
-            height: 100vh;
-            overflow-y: auto;
         }
         
-        /* Back button in library */
-        .back-button {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 1000;
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .search-container {
+            position: relative;
+        }
+        
+        .modern-search {
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            width: 220px;
+            transition: all 0.3s ease;
+        }
+        
+        .modern-search:focus {
+            outline: none;
+            border-color: var(--primary-black);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-800);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid var(--gray-200);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.5rem;
+            text-align: center;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+        
+        .page-code {
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--primary-black);
+            margin-bottom: 4rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* Modern E-Book Grid */
+        .ebooks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+        
+        .ebook-card {
             background: var(--primary-white);
             border: 1px solid var(--gray-200);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .ebook-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-black), var(--gray-800));
+        }
+        
+        .ebook-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ebook-media {
+            height: 220px;
+            background: var(--gray-100);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .ebook-card:hover .video-thumbnail {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .play-button:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .play-icon {
+            color: var(--primary-white);
+            font-size: 1.5rem;
+            margin-left: 3px;
+        }
+        
+        .youtube-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+        
+        .ebook-content {
+            padding: 1.5rem;
+        }
+        
+        .ebook-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .ebook-subtitle {
+            font-size: 1rem;
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .ebook-description {
             font-size: 0.9rem;
+            color: var(--gray-800);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .ebook-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .ebook-author {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .ebook-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            background: var(--primary-white);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .back-button:hover {
+        .action-btn:hover {
             background: var(--gray-100);
+        }
+        
+        .action-btn.primary {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            border-color: var(--primary-black);
+        }
+        
+        .action-btn.primary:hover {
+            background: var(--gray-800);
+        }
+        
+        /* Kotravayi Section */
+        .kotravayi-section {
+            background: var(--gray-50);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .kotravayi-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .kotravayi-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-800);
+            margin-bottom: 2rem;
+        }
+        
+        .kotravayi-btn {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .kotravayi-btn:hover {
+            background: var(--gray-800);
+            transform: translateY(-2px);
+        }
+        
+        /* Tamil Om Button */
+        .tamil-om-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+        
+        .tamil-om-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tamil-om-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .tamil-om-btn.active {
+            animation: omGlow 2s infinite alternate;
+        }
+        
+        @keyframes omGlow {
+            0% {
+                box-shadow: 0 0 10px var(--accent-glow);
+            }
+            100% {
+                box-shadow: 0 0 25px var(--accent-glow);
+            }
+        }
+        
+        .tamil-om {
+            color: var(--primary-white);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .modern-footer {
+            background: var(--gray-800);
+            color: var(--primary-white);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray-200);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-white);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-800);
+            color: var(--gray-200);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .ebooks-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .modern-nav {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .ebooks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Entry Page -->
-    <div id="accessContainer">
-        <div class="access-container">
-            <div class="company-name">BOMBAY OCEAN CREATIONS</div>
-            <button class="library-button" id="libraryButton">
-                <div class="button-title">Ek Dant</div>
-                <div class="marathi-text">प्रथम तुला वंदितो</div>
-            </button>
-            <p class="instruction">Click the button to enter the Digital E-Book Library</p>
+    <!-- Modern Header -->
+    <header class="modern-header">
+        <div class="header-container">
+            <div class="logo">BOMBAY<span class="logo-accent">OCEAN</span>CREATIONS</div>
+            <nav class="modern-nav">
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Soul</a>
+                <a href="#" class="nav-link">Chit</a>
+                <a href="#" class="nav-link">VR Tech</a>
+                <a href="#" class="nav-link">T-Moolar</a>
+                <a href="#" class="nav-link">Dr.sivan</a>
+                <a href="#" class="nav-link">Mark</a>
+            </nav>
+            <div class="header-actions">
+                <div class="search-container">
+                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                    <input type="text" class="modern-search" placeholder="Search e-books...">
+                </div>
+                <div class="user-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Main Library Content (Hidden Initially) -->
-    <div id="mainContent">
-        <!-- Back Button -->
-        <button class="back-button" id="backButton">← Back to Entry</button>
-        
-        <!-- Library content will be loaded here by JavaScript -->
-    </div>
-
-    <script>
-        document.getElementById('libraryButton').addEventListener('click', function() {
-            // Hide the access container
-            document.getElementById('accessContainer').style.display = 'none';
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Digital E-Book Library</h1>
+            <p class="page-subtitle">The Chidambaram Code</p>
+            <p class="page-code">Explore our premium collection of ocean-related knowledge</p>
             
-            // Show the main content
-            document.getElementById('mainContent').style.display = 'block';
-            
-            // Load the library content
-            loadLibraryContent();
-        });
-
-        document.getElementById('backButton').addEventListener('click', function() {
-            // Hide the main content
-            document.getElementById('mainContent').style.display = 'none';
-            
-            // Show the access container
-            document.getElementById('accessContainer').style.display = 'block';
-        });
-
-        function loadLibraryContent() {
-            // This would load your actual library content
-            // For this example, I'll create a simplified version
-            const libraryHTML = `
-                <style>
-                    /* Library styles */
-                    .library-header {
-                        background: #fff;
-                        padding: 1.5rem 0;
-                        border-bottom: 1px solid #e5e5e5;
-                        position: sticky;
-                        top: 0;
-                        z-index: 100;
-                    }
-                    
-                    .library-container {
-                        max-width: 1400px;
-                        margin: 0 auto;
-                        padding: 0 2rem;
-                    }
-                    
-                    .library-title {
-                        font-size: 3.5rem;
-                        font-weight: 700;
-                        text-align: center;
-                        margin-bottom: 0.5rem;
-                        letter-spacing: -1px;
-                    }
-                    
-                    .library-subtitle {
-                        font-size: 1.5rem;
-                        text-align: center;
-                        color: #262626;
-                        margin-bottom: 0.5rem;
-                        font-weight: 400;
-                    }
-                    
-                    .library-code {
-                        font-size: 1.2rem;
-                        text-align: center;
-                        color: #000;
-                        margin-bottom: 4rem;
-                        font-weight: 600;
-                        text-transform: uppercase;
-                        letter-spacing: 2px;
-                    }
-                    
-                    .ebooks-grid {
-                        display: grid;
-                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                        gap: 2rem;
-                        margin-bottom: 6rem;
-                        padding: 0 2rem;
-                    }
-                    
-                    .ebook-card {
-                        background: #fff;
-                        border: 1px solid #e5e5e5;
-                        border-radius: 16px;
-                        overflow: hidden;
-                        transition: all 0.3s ease;
-                    }
-                    
-                    .ebook-card:hover {
-                        transform: translateY(-8px);
-                        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-                    }
-                    
-                    .ebook-media {
-                        height: 200px;
-                        background: #f5f5f5;
-                        position: relative;
-                    }
-                    
-                    .ebook-content {
-                        padding: 1.5rem;
-                    }
-                    
-                    .ebook-title {
-                        font-size: 1.4rem;
-                        font-weight: 600;
-                        margin-bottom: 0.5rem;
-                    }
-                </style>
-                
-                <header class="library-header">
-                    <div class="library-container">
-                        <div style="font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px;">
-                            BOMBAY<span style="color: #262626; font-weight: 300;">OCEAN</span>CREATIONS
+            <!-- E-Books Grid -->
+            <div class="ebooks-grid">
+                <!-- E-Book 1 -->
+                <div class="ebook-card">
+                    <div class="ebook-media">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <iframe class="youtube-embed" 
+                                src="https://www.youtube.com/embed/8Si03NV2ouo?autoplay=0&modestbranding=1&rel=0&showinfo=0&controls=0"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                        <div class="play-button" onclick="playVideo(this)">
+                            <span class="play-icon">▶</span>
                         </div>
-                        <nav style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem;">
-                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">About</a>
-                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Soul</a>
-                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Chit</a>
-                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">VR Tech</a>
-                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">T-Moolar</a>
-                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Dr.sivan</a>
-                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Mark</a>
-                        </nav>
                     </div>
-                </header>
-                
-                <main style="padding: 4rem 0;">
-                    <div class="library-container">
-                        <h1 class="library-title">Digital E-Book Library</h1>
-                        <p class="library-subtitle">The Chidambaram Code</p>
-                        <p class="library-code">Explore of soul multiple role...</p>
-                        
-                        <div class="ebooks-grid">
-                            <!-- E-Book 1 -->
-                            <div class="ebook-card">
-                                <div class="ebook-media"></div>
-                                <div class="ebook-content">
-                                    <h3 class="ebook-title">OCEAN WAVES AND TIDES</h3>
-                                    <p style="color: #262626; margin-bottom: 1rem;">Matriarch1 System</p>
-                                    <p style="font-size: 0.9rem; color: #262626; margin-bottom: 1.5rem;">
-                                        Advanced analysis of ocean wave patterns and tidal systems.
-                                    </p>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e5e5e5;">
-                                        <span style="font-size: 0.9rem; font-weight: 500;">Dr. Marine Biologist</span>
-                                        <div style="display: flex; gap: 0.5rem;">
-                                            <button style="padding: 0.5rem 1rem; border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; font-size: 0.8rem; cursor: pointer;">Preview</button>
-                                            <button style="padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 6px; background: #000; color: #fff; font-size: 0.8rem; cursor: pointer;">Read</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- E-Book 2 -->
-                            <div class="ebook-card">
-                                <div class="ebook-media"></div>
-                                <div class="ebook-content">
-                                    <h3 class="ebook-title">DEEP SEA EXPLORATION</h3>
-                                    <p style="color: #262626; margin-bottom: 1rem;">Markainday Series</p>
-                                    <p style="font-size: 0.9rem; color: #262626; margin-bottom: 1.5rem;">
-                                        Documenting discoveries from the deepest ocean trenches.
-                                    </p>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e5e5e5;">
-                                        <span style="font-size: 0.9rem; font-weight: 500;">Captain Nemo</span>
-                                        <div style="display: flex; gap: 0.5rem;">
-                                            <button style="padding: 0.5rem 1rem; border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; font-size: 0.8rem; cursor: pointer;">Preview</button>
-                                            <button style="padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 6px; background: #000; color: #fff; font-size: 0.8rem; cursor: pointer;">Read</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- E-Book 3 -->
-                            <div class="ebook-card">
-                                <div class="ebook-media"></div>
-                                <div class="ebook-content">
-                                    <h3 class="ebook-title">MARINE BIODIVERSITY</h3>
-                                    <p style="color: #262626; margin-bottom: 1rem;">Dr.sIVAN Research</p>
-                                    <p style="font-size: 0.9rem; color: #262626; margin-bottom: 1.5rem;">
-                                        Comprehensive study of marine ecosystems and symbiotic relationships.
-                                    </p>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e5e5e5;">
-                                        <span style="font-size: 0.9rem; font-weight: 500;">Prof. Coral Reef</span>
-                                        <div style="display: flex; gap: 0.5rem;">
-                                            <button style="padding: 0.5rem 1rem; border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; font-size: 0.8rem; cursor: pointer;">Preview</button>
-                                            <button style="padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 6px; background: #000; color: #fff; font-size: 0.8rem; cursor: pointer;">Read</button>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="ebook-content">
+                        <h3 class="ebook-title">OCEAN WAVES AND TIDES</h3>
+                        <p class="ebook-subtitle">Matriarch1 System</p>
+                        <p class="ebook-description">Advanced analysis of ocean wave patterns and tidal systems using the revolutionary Matriarch1 framework for predictive modeling.</p>
+                        <div class="ebook-meta">
+                            <span class="ebook-author">Dr. Marine Biologist</span>
+                            <div class="ebook-actions">
+                                <button class="action-btn">Preview</button>
+                                <button class="action-btn primary">Read</button>
                             </div>
                         </div>
                     </div>
-                </main>
-            `;
-            
-            document.getElementById('mainContent').innerHTML = libraryHTML;
-        }
-    </script>
-</body>
-</html>
+                </div>
+                
+                <!-- E-Book 2 -->
+                <div class="ebook-card">
+                    <div class="ebook-media">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                        <iframe class="youtube-embed" 
+                                src="https://www.youtube.com/embed/x7xFfBKYht0?autoplay=0&modestbranding=1&rel=0&showinfo=0&controls=0"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                        <div class="play-button" onclick="playVideo(this)">
+                            <span class="play-icon">▶</span>
+                        </div>
+                    </div>
+                    <div class="ebook-content">
+                        <h3 class="ebook-title">DEEP SEA EXPLORATION</h3>
+                        <p class="ebook-subtitle">Markainday Series</p>
+                        <p class="ebook-description">Documenting the groundbreaking discoveries from the deepest ocean trenches and the mysterious Funeral King civilization.</p>
+                        <div class="ebook-meta">
+                            <span class="ebook-author">Captain Nemo</span>
+                            <div class="ebook-actions">
+                                <button class="action-btn">Preview</button>
+                                <button class="action-btn primary">Read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- E-Book 3 -->
+                <div class="ebook-card">
+                    <div class="ebook-media">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                        <iframe class="youtube-embed" 
+                                src="https://www.youtube.com/embed/BgHOPI-cqv0?autoplay=0&modestbranding=1&rel=0&showinfo=0&controls=0"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                        <div class="play-button" onclick="playVideo(this)">
+                            <span class="play-icon">▶</span>
+                        </div>
+                    </div>
+                    <div class="ebook-content">
+                        <h3 class="ebook-title">MARINE BIODIVERSITY</h3>
+                        <p class="ebook-subtitle">Dr.sIVAN Research</p>
+                        <p class="ebook-description">Comprehensive study of marine ecosystems and symbiotic relationships using the innovative Dr.sIVAN methodology.</p>
+                        <div class="ebook-meta">
+                            <span class="ebook-author">Prof. Coral Reef</span>
+                            <div class="ebook-actions">
+                                <button class="action-btn">Preview</button>
+                                <button class="action-btn primary">Read</button>
+                                

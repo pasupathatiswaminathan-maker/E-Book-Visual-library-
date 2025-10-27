@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Access | Bombay Ocean Creations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-black: #000000;
+            --primary-white: #ffffff;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-800: #262626;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-white);
+            color: var(--primary-black);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .access-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .company-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .library-button {
+            background: var(--primary-white);
+            border: 2px solid var(--primary-black);
+            padding: 1.5rem 3rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .library-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+        
+        .button-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .marathi-text {
+            font-size: 1rem;
+            color: var(--gray-800);
+            font-style: italic;
+        }
+        
+        .instruction {
+            font-size: 0.9rem;
+            color: var(--gray-800);
+            margin-top: 1rem;
+        }
+        
+        /* Hide main content initially */
+        #mainContent {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        /* Back button in library */
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+            background: var(--primary-white);
+            border: 1px solid var(--gray-200);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: var(--gray-100);
+        }
+    </style>
+</head>
+<body>
+    <!-- Entry Page -->
+    <div id="accessContainer">
+        <div class="access-container">
+            <div class="company-name">BOMBAY OCEAN CREATIONS</div>
+            <button class="library-button" id="libraryButton">
+                <div class="button-title">Ek Dant</div>
+                <div class="marathi-text">प्रथम तुला वंदितो</div>
+            </button>
+            <p class="instruction">Click the button to enter the Digital E-Book Library</p>
+        </div>
+    </div>
+
+    <!-- Main Library Content (Hidden Initially) -->
+    <div id="mainContent">
+        <!-- Back Button -->
+        <button class="back-button" id="backButton">← Back to Entry</button>
+        
+        <!-- Library content will be loaded here by JavaScript -->
+    </div>
+
+    <script>
+        document.getElementById('libraryButton').addEventListener('click', function() {
+            // Hide the access container
+            document.getElementById('accessContainer').style.display = 'none';
+            
+            // Show the main content
+            document.getElementById('mainContent').style.display = 'block';
+            
+            // Load the library content
+            loadLibraryContent();
+        });
+
+        document.getElementById('backButton').addEventListener('click', function() {
+            // Hide the main content
+            document.getElementById('mainContent').style.display = 'none';
+            
+            // Show the access container
+            document.getElementById('accessContainer').style.display = 'block';
+        });
+
+        function loadLibraryContent() {
+            // This would load your actual library content
+            // For this example, I'll create a simplified version
+            const libraryHTML = `
+                <style>
+                    /* Library styles */
+                    .library-header {
+                        background: #fff;
+                        padding: 1.5rem 0;
+                        border-bottom: 1px solid #e5e5e5;
+                        position: sticky;
+                        top: 0;
+                        z-index: 100;
+                    }
+                    
+                    .library-container {
+                        max-width: 1400px;
+                        margin: 0 auto;
+                        padding: 0 2rem;
+                    }
+                    
+                    .library-title {
+                        font-size: 3.5rem;
+                        font-weight: 700;
+                        text-align: center;
+                        margin-bottom: 0.5rem;
+                        letter-spacing: -1px;
+                    }
+                    
+                    .library-subtitle {
+                        font-size: 1.5rem;
+                        text-align: center;
+                        color: #262626;
+                        margin-bottom: 0.5rem;
+                        font-weight: 400;
+                    }
+                    
+                    .library-code {
+                        font-size: 1.2rem;
+                        text-align: center;
+                        color: #000;
+                        margin-bottom: 4rem;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                    }
+                    
+                    .ebooks-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                        gap: 2rem;
+                        margin-bottom: 6rem;
+                        padding: 0 2rem;
+                    }
+                    
+                    .ebook-card {
+                        background: #fff;
+                        border: 1px solid #e5e5e5;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .ebook-card:hover {
+                        transform: translateY(-8px);
+                        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .ebook-media {
+                        height: 200px;
+                        background: #f5f5f5;
+                        position: relative;
+                    }
+                    
+                    .ebook-content {
+                        padding: 1.5rem;
+                    }
+                    
+                    .ebook-title {
+                        font-size: 1.4rem;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                    }
+                </style>
+                
+                <header class="library-header">
+                    <div class="library-container">
+                        <div style="font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px;">
+                            BOMBAY<span style="color: #262626; font-weight: 300;">OCEAN</span>CREATIONS
+                        </div>
+                        <nav style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem;">
+                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">About</a>
+                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Soul</a>
+                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Chit</a>
+                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">VR Tech</a>
+                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">T-Moolar</a>
+                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Dr.sivan</a>
+                            <a style="color: #000; text-decoration: none; font-weight: 500; cursor: pointer;">Mark</a>
+                        </nav>
+                    </div>
+                </header>
+                
+                <main style="padding: 4rem 0;">
+                    <div class="library-container">
+                        <h1 class="library-title">Digital E-Book Library</h1>
+                        <p class="library-subtitle">The Chidambaram Code</p>
+                        <p class="library-code">Explore of soul multiple role...</p>
+                        
+                        <div class="ebooks-grid">
+                            <!-- E-Book 1 -->
+                            <div class="ebook-card">
+                                <div class="ebook-media"></div>
+                                <div class="ebook-content">
+                                    <h3 class="ebook-title">OCEAN WAVES AND TIDES</h3>
+                                    <p style="color: #262626; margin-bottom: 1rem;">Matriarch1 System</p>
+                                    <p style="font-size: 0.9rem; color: #262626; margin-bottom: 1.5rem;">
+                                        Advanced analysis of ocean wave patterns and tidal systems.
+                                    </p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e5e5e5;">
+                                        <span style="font-size: 0.9rem; font-weight: 500;">Dr. Marine Biologist</span>
+                                        <div style="display: flex; gap: 0.5rem;">
+                                            <button style="padding: 0.5rem 1rem; border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; font-size: 0.8rem; cursor: pointer;">Preview</button>
+                                            <button style="padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 6px; background: #000; color: #fff; font-size: 0.8rem; cursor: pointer;">Read</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- E-Book 2 -->
+                            <div class="ebook-card">
+                                <div class="ebook-media"></div>
+                                <div class="ebook-content">
+                                    <h3 class="ebook-title">DEEP SEA EXPLORATION</h3>
+                                    <p style="color: #262626; margin-bottom: 1rem;">Markainday Series</p>
+                                    <p style="font-size: 0.9rem; color: #262626; margin-bottom: 1.5rem;">
+                                        Documenting discoveries from the deepest ocean trenches.
+                                    </p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e5e5e5;">
+                                        <span style="font-size: 0.9rem; font-weight: 500;">Captain Nemo</span>
+                                        <div style="display: flex; gap: 0.5rem;">
+                                            <button style="padding: 0.5rem 1rem; border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; font-size: 0.8rem; cursor: pointer;">Preview</button>
+                                            <button style="padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 6px; background: #000; color: #fff; font-size: 0.8rem; cursor: pointer;">Read</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- E-Book 3 -->
+                            <div class="ebook-card">
+                                <div class="ebook-media"></div>
+                                <div class="ebook-content">
+                                    <h3 class="ebook-title">MARINE BIODIVERSITY</h3>
+                                    <p style="color: #262626; margin-bottom: 1rem;">Dr.sIVAN Research</p>
+                                    <p style="font-size: 0.9rem; color: #262626; margin-bottom: 1.5rem;">
+                                        Comprehensive study of marine ecosystems and symbiotic relationships.
+                                    </p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e5e5e5;">
+                                        <span style="font-size: 0.9rem; font-weight: 500;">Prof. Coral Reef</span>
+                                        <div style="display: flex; gap: 0.5rem;">
+                                            <button style="padding: 0.5rem 1rem; border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; font-size: 0.8rem; cursor: pointer;">Preview</button>
+                                            <button style="padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 6px; background: #000; color: #fff; font-size: 0.8rem; cursor: pointer;">Read</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            `;
+            
+            document.getElementById('mainContent').innerHTML = libraryHTML;
+        }
+    </script>
+</body>
+</html>
